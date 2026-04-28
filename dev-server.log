@@ -55,3 +55,4 @@
  ✓ Compiled /product/[id] in 260ms (539 modules)
  GET /shop?category=Shirts 200 in 825ms
  GET /product/2416 200 in 928ms
+ ✓ Compiled in 7.4s (543 modules)
