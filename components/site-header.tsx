@@ -3,8 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, ShoppingCart, UserRound, X } from "lucide-react";
+import { Minus, Plus, Search, ShoppingCart, UserRound, X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { formatCartMoney, useCart } from "@/components/cart-provider";
 import navbarLogo from "../Logo-navbar.png";
 
 const links = [
@@ -23,8 +24,8 @@ const marqueeItems = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const { cartOpen, closeCart, itemCount, items, openCart, subtotal, updateQuantity } = useCart();
   const [searchOpen, setSearchOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
 
   const activePath = useMemo(() => (pathname === "/" ? "/" : `/${pathname.split("/")[1]}`), [pathname]);
@@ -64,9 +65,9 @@ export function SiteHeader() {
               >
                 <UserRound />
               </button>
-              <button aria-label="Open cart" className="cart-button" onClick={() => setCartOpen(true)} type="button">
+              <button aria-label="Open cart" className="cart-button" onClick={openCart} type="button">
                 <ShoppingCart />
-                <span>0</span>
+                <span>{itemCount}</span>
               </button>
               {accountOpen && (
                 <div className="account-dropdown">
@@ -98,22 +99,69 @@ export function SiteHeader() {
 
       {cartOpen && (
         <div className="cart-overlay">
-          <button className="cart-shade" aria-label="Close cart" onClick={() => setCartOpen(false)} type="button" />
+          <button className="cart-shade" aria-label="Close cart" onClick={closeCart} type="button" />
           <aside className="cart-drawer">
             <div className="cart-title">
               <strong>SHOPPING CART</strong>
-              <span>0</span>
-              <button aria-label="Close cart" onClick={() => setCartOpen(false)} type="button">
+              <span>{itemCount}</span>
+              <button aria-label="Close cart" onClick={closeCart} type="button">
                 <X />
               </button>
             </div>
-            <div className="empty-cart-icon">
-              <ShoppingCart />
-            </div>
-            <p>No products in the cart.</p>
-            <Link href="/shop" onClick={() => setCartOpen(false)}>
-              Continue Shopping
-            </Link>
+            {items.length ? (
+              <>
+                <div className="cart-items">
+                  {items.map((item) => (
+                    <div className="cart-line" key={item.id}>
+                      <img src={item.image} alt={item.name} />
+                      <div>
+                        <Link href={`/product/${item.id}`} onClick={closeCart}>
+                          {item.name}
+                        </Link>
+                        <div className="cart-line-controls">
+                          <button
+                            aria-label={`Decrease ${item.name} quantity`}
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            type="button"
+                          >
+                            <Minus size={13} />
+                          </button>
+                          <strong>{item.quantity}</strong>
+                          <button
+                            aria-label={`Increase ${item.name} quantity`}
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            type="button"
+                          >
+                            <Plus size={13} />
+                          </button>
+                        </div>
+                      </div>
+                      <strong className="cart-line-total">{formatCartMoney(item.unitPrice * item.quantity)}</strong>
+                    </div>
+                  ))}
+                </div>
+                <div className="cart-subtotal">
+                  <span>Subtotal</span>
+                  <strong>{formatCartMoney(subtotal)}</strong>
+                </div>
+                <Link className="cart-view-link" href="/cart" onClick={closeCart}>
+                  View Cart
+                </Link>
+                <Link className="cart-checkout-link" href="/checkout" onClick={closeCart}>
+                  Checkout
+                </Link>
+              </>
+            ) : (
+              <>
+                <div className="empty-cart-icon">
+                  <ShoppingCart />
+                </div>
+                <p>No products in the cart.</p>
+                <Link href="/shop" onClick={closeCart}>
+                  Continue Shopping
+                </Link>
+              </>
+            )}
           </aside>
         </div>
       )}

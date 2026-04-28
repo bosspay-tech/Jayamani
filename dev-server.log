@@ -7,20 +7,51 @@
    - Network:      http://127.0.0.1:3000
 
  ✓ Starting...
- ✓ Ready in 4.4s
- ○ Compiling / ...
- ✓ Compiled / in 2.9s (674 modules)
- GET / 200 in 4474ms
- GET / 200 in 1039ms
- ✓ Compiled in 569ms (660 modules)
- ✓ Compiled in 211ms (660 modules)
- ✓ Compiled in 704ms (673 modules)
- GET / 200 in 603ms
- ✓ Compiled in 435ms (687 modules)
- GET / 200 in 417ms
- ○ Compiling /_error ...
- ✓ Compiled /_error in 4.8s (1019 modules)
- GET / 200 in 2512ms
- GET / 500 in 11299ms
- GET / 200 in 451ms
- ✓ Compiled in 467ms (1019 modules)
+ ✓ Ready in 1896ms
+ ○ Compiling /shop ...
+ ✓ Compiled /shop in 3.2s (701 modules)
+ GET /shop 200 in 3782ms
+ GET /product/2210 200 in 4650ms
+ GET /product/2210 200 in 4739ms
+ ✓ Compiled in 250ms (701 modules)
+ ✓ Compiled in 226ms (701 modules)
+ ✓ Compiled in 936ms (715 modules)
+ ✓ Compiled in 141ms (275 modules)
+ ○ Compiling /checkout ...
+ ✓ Compiled /checkout in 804ms (714 modules)
+ GET /checkout 200 in 1367ms
+ GET /product/2210 200 in 1376ms
+ GET /cart 200 in 1391ms
+ ✓ Compiled in 874ms
+ ✓ Compiled in 2.4s (268 modules)
+ ✓ Compiled in 320ms (268 modules)
+ ✓ Compiled in 719ms (282 modules)
+ ✓ Compiled in 319ms (282 modules)
+ ○ Compiling /shop ...
+ ✓ Compiled /shop in 728ms (694 modules)
+ GET /shop?category=Saree&color=Avocado%20Green&max_price=8000 200 in 1585ms
+ GET /shop?color=Black 200 in 1629ms
+ GET /shop?max_price=7500 200 in 1630ms
+ ✓ Compiled / in 476ms (706 modules)
+ GET / 200 in 1216ms
+ GET / 200 in 269ms
+ ✓ Compiled in 450ms (713 modules)
+ ○ Compiling /_not-found ...
+ GET /shop?max_price=8000 500 in 457ms
+ GET /shop?max_price=8000 500 in 17ms
+ GET /shop?max_price=8000 500 in 334ms
+ GET /shop?max_price=8000 500 in 67ms
+ GET / 500 in 765ms
+ GET / 500 in 63ms
+ GET / 500 in 166ms
+ GET / 500 in 66ms
+ ✓ Compiled / in 880ms (528 modules)
+ ✓ Compiled in 213ms (528 modules)
+ ✓ Compiled in 341ms (434 modules)
+ ✓ Compiled /shop in 369ms (945 modules)
+ GET /shop?color=Black 200 in 1199ms
+ GET /shop 200 in 1233ms
+ GET /shop?max_price=7500 200 in 1252ms
+ ✓ Compiled /product/[id] in 260ms (539 modules)
+ GET /shop?category=Shirts 200 in 825ms
+ GET /product/2416 200 in 928ms

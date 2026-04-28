@@ -1,75 +1,330 @@
- ⨯ ./Logo-navbar.jpeg
-Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.jpeg'
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ ./app/shop/page.tsx
+Error:   [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:1:1]
+ [2m1[0m | <<<<<<< ours
+   : [35;1m^^^^^^^[0m
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m3[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:5:1]
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m4[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m5[0m | =======
+   : [35;1m^^^^^^^[0m
+ [2m6[0m | import Link from "next/link";
+ [2m7[0m | import { ProductCard } from "@/components/product-card";
+ [2m7[0m | import { PageHero } from "@/components/page-hero";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:10:1]
+ [2m 7[0m | import { ProductCard } from "@/components/product-card";
+ [2m 8[0m | import { PageHero } from "@/components/page-hero";
+ [2m 9[0m | import { filterProductsByCategory, getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m10[0m | >>>>>>> theirs
+    : [35;1m^^^^^^^[0m
+ [2m11[0m | import { Search } from "lucide-react";
+ [2m12[0m | 
+ [2m12[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:15:1]
+ [2m12[0m | 
+ [2m13[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+ [2m14[0m | 
+ [2m15[0m | <<<<<<< ours
+    : [35;1m^^^^^^^[0m
+ [2m16[0m | export default function ShopPage() {
+ [2m17[0m |   const products = getShopProducts().slice(0, 12);
+ [2m17[0m |   const categories = getCategoryCounts();
+    `----
+  [31mx[0m Expected '</', got ':'
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:25:1]
+ [2m22[0m |       <PageHero title="Shop" />
+ [2m23[0m | =======
+ [2m24[0m | type ShopPageProps = {
+ [2m25[0m |   searchParams?: Promise<{
+    : [35;1m               ^[0m
+ [2m26[0m |     category?: string | string[];
+ [2m27[0m |   }>;
+ [2m27[0m | };
+    `----
+
+Caused by:
+    Syntax Error
 
 Import trace for requested module:
-./Logo-navbar.jpeg
-./components/site-header.tsx
- ⨯ ./Logo-navbar.jpeg
-Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.jpeg'
+./app/shop/page.tsx
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ ./app/shop/page.tsx
+Error:   [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:1:1]
+ [2m1[0m | <<<<<<< ours
+   : [35;1m^^^^^^^[0m
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m3[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:5:1]
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m4[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m5[0m | =======
+   : [35;1m^^^^^^^[0m
+ [2m6[0m | import Link from "next/link";
+ [2m7[0m | import { ProductCard } from "@/components/product-card";
+ [2m7[0m | import { PageHero } from "@/components/page-hero";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:10:1]
+ [2m 7[0m | import { ProductCard } from "@/components/product-card";
+ [2m 8[0m | import { PageHero } from "@/components/page-hero";
+ [2m 9[0m | import { filterProductsByCategory, getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m10[0m | >>>>>>> theirs
+    : [35;1m^^^^^^^[0m
+ [2m11[0m | import { Search } from "lucide-react";
+ [2m12[0m | 
+ [2m12[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:15:1]
+ [2m12[0m | 
+ [2m13[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+ [2m14[0m | 
+ [2m15[0m | <<<<<<< ours
+    : [35;1m^^^^^^^[0m
+ [2m16[0m | export default function ShopPage() {
+ [2m17[0m |   const products = getShopProducts().slice(0, 12);
+ [2m17[0m |   const categories = getCategoryCounts();
+    `----
+  [31mx[0m Expected '</', got ':'
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:25:1]
+ [2m22[0m |       <PageHero title="Shop" />
+ [2m23[0m | =======
+ [2m24[0m | type ShopPageProps = {
+ [2m25[0m |   searchParams?: Promise<{
+    : [35;1m               ^[0m
+ [2m26[0m |     category?: string | string[];
+ [2m27[0m |   }>;
+ [2m27[0m | };
+    `----
+
+Caused by:
+    Syntax Error
 
 Import trace for requested module:
-./Logo-navbar.jpeg
-./components/site-header.tsx
- ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
-    at stringify (<anonymous>) {
-  digest: '4031345927'
-}
- ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
-    at stringify (<anonymous>)
-    at stringify (<anonymous>) {
-  digest: '961354374'
-}
- ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
-    at stringify (<anonymous>)
-    at stringify (<anonymous>) {
-  digest: '961354374'
-}
- ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
-    at stringify (<anonymous>)
-    at stringify (<anonymous>) {
-  digest: '961354374'
-}
- ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
-    at stringify (<anonymous>) {
-  digest: '4031345927'
-}
- ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
-    at stringify (<anonymous>) {
-  digest: '4031345927'
-}
- ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
-  digest: '576016998'
-}
- ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
-    at stringify (<anonymous>) {
-  digest: '4031345927'
-}
-[TypeError: __webpack_modules__[moduleId] is not a function]
- ⨯ [TypeError: __webpack_modules__[moduleId] is not a function]
- ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
-  page: '/'
-}
- ⨯ ./Logo-navbar.png
-Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.png'
+./app/shop/page.tsx
+ ⨯ ./app/shop/page.tsx
+Error:   [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:1:1]
+ [2m1[0m | <<<<<<< ours
+   : [35;1m^^^^^^^[0m
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m3[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:5:1]
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m4[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m5[0m | =======
+   : [35;1m^^^^^^^[0m
+ [2m6[0m | import Link from "next/link";
+ [2m7[0m | import { ProductCard } from "@/components/product-card";
+ [2m7[0m | import { PageHero } from "@/components/page-hero";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:10:1]
+ [2m 7[0m | import { ProductCard } from "@/components/product-card";
+ [2m 8[0m | import { PageHero } from "@/components/page-hero";
+ [2m 9[0m | import { filterProductsByCategory, getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m10[0m | >>>>>>> theirs
+    : [35;1m^^^^^^^[0m
+ [2m11[0m | import { Search } from "lucide-react";
+ [2m12[0m | 
+ [2m12[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:15:1]
+ [2m12[0m | 
+ [2m13[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+ [2m14[0m | 
+ [2m15[0m | <<<<<<< ours
+    : [35;1m^^^^^^^[0m
+ [2m16[0m | export default function ShopPage() {
+ [2m17[0m |   const products = getShopProducts().slice(0, 12);
+ [2m17[0m |   const categories = getCategoryCounts();
+    `----
+  [31mx[0m Expected '</', got ':'
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:25:1]
+ [2m22[0m |       <PageHero title="Shop" />
+ [2m23[0m | =======
+ [2m24[0m | type ShopPageProps = {
+ [2m25[0m |   searchParams?: Promise<{
+    : [35;1m               ^[0m
+ [2m26[0m |     category?: string | string[];
+ [2m27[0m |   }>;
+ [2m27[0m | };
+    `----
+
+Caused by:
+    Syntax Error
 
 Import trace for requested module:
-./Logo-navbar.png
-./components/site-footer.tsx
-./app/layout.tsx
- ⨯ ./Logo-navbar.png
-Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.png'
+./app/shop/page.tsx
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ ./app/shop/page.tsx
+Error:   [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:1:1]
+ [2m1[0m | <<<<<<< ours
+   : [35;1m^^^^^^^[0m
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m3[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:5:1]
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m4[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m5[0m | =======
+   : [35;1m^^^^^^^[0m
+ [2m6[0m | import Link from "next/link";
+ [2m7[0m | import { ProductCard } from "@/components/product-card";
+ [2m7[0m | import { PageHero } from "@/components/page-hero";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:10:1]
+ [2m 7[0m | import { ProductCard } from "@/components/product-card";
+ [2m 8[0m | import { PageHero } from "@/components/page-hero";
+ [2m 9[0m | import { filterProductsByCategory, getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m10[0m | >>>>>>> theirs
+    : [35;1m^^^^^^^[0m
+ [2m11[0m | import { Search } from "lucide-react";
+ [2m12[0m | 
+ [2m12[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:15:1]
+ [2m12[0m | 
+ [2m13[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+ [2m14[0m | 
+ [2m15[0m | <<<<<<< ours
+    : [35;1m^^^^^^^[0m
+ [2m16[0m | export default function ShopPage() {
+ [2m17[0m |   const products = getShopProducts().slice(0, 12);
+ [2m17[0m |   const categories = getCategoryCounts();
+    `----
+  [31mx[0m Expected '</', got ':'
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:25:1]
+ [2m22[0m |       <PageHero title="Shop" />
+ [2m23[0m | =======
+ [2m24[0m | type ShopPageProps = {
+ [2m25[0m |   searchParams?: Promise<{
+    : [35;1m               ^[0m
+ [2m26[0m |     category?: string | string[];
+ [2m27[0m |   }>;
+ [2m27[0m | };
+    `----
+
+Caused by:
+    Syntax Error
 
 Import trace for requested module:
-./Logo-navbar.png
- ⨯ ./Logo-navbar.png
-Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.png'
+./app/shop/page.tsx
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ ./app/shop/page.tsx
+Error:   [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:1:1]
+ [2m1[0m | <<<<<<< ours
+   : [35;1m^^^^^^^[0m
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m3[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+   ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:5:1]
+ [2m2[0m | import { ProductCard } from "@/components/product-card";
+ [2m3[0m | import { PageHero } from "@/components/page-hero";
+ [2m4[0m | import { getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m5[0m | =======
+   : [35;1m^^^^^^^[0m
+ [2m6[0m | import Link from "next/link";
+ [2m7[0m | import { ProductCard } from "@/components/product-card";
+ [2m7[0m | import { PageHero } from "@/components/page-hero";
+   `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:10:1]
+ [2m 7[0m | import { ProductCard } from "@/components/product-card";
+ [2m 8[0m | import { PageHero } from "@/components/page-hero";
+ [2m 9[0m | import { filterProductsByCategory, getCategoryCounts, getShopProducts } from "@/lib/products";
+ [2m10[0m | >>>>>>> theirs
+    : [35;1m^^^^^^^[0m
+ [2m11[0m | import { Search } from "lucide-react";
+ [2m12[0m | 
+ [2m12[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+    `----
+  [31mx[0m Merge conflict marker encountered.
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:15:1]
+ [2m12[0m | 
+ [2m13[0m | const tags = ["ARRIVALS", "BEST", "Dress", "GLAM", "NEW", "READY", "SAREE", "SELLER", "SELLERS", "SHIP", "TO"];
+ [2m14[0m | 
+ [2m15[0m | <<<<<<< ours
+    : [35;1m^^^^^^^[0m
+ [2m16[0m | export default function ShopPage() {
+ [2m17[0m |   const products = getShopProducts().slice(0, 12);
+ [2m17[0m |   const categories = getCategoryCounts();
+    `----
+  [31mx[0m Expected '</', got ':'
+    ,-[[36;1;4mC:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\app\shop\page.tsx[0m:25:1]
+ [2m22[0m |       <PageHero title="Shop" />
+ [2m23[0m | =======
+ [2m24[0m | type ShopPageProps = {
+ [2m25[0m |   searchParams?: Promise<{
+    : [35;1m               ^[0m
+ [2m26[0m |     category?: string | string[];
+ [2m27[0m |   }>;
+ [2m27[0m | };
+    `----
+
+Caused by:
+    Syntax Error
 
 Import trace for requested module:
-./Logo-navbar.png
-./components/site-footer.tsx
-./app/layout.tsx
- ⨯ ./Logo-navbar.png
-Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.png'
-
-Import trace for requested module:
-./Logo-navbar.png
+./app/shop/page.tsx
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
