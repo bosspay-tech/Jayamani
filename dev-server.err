@@ -1,0 +1,75 @@
+ ⨯ ./Logo-navbar.jpeg
+Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.jpeg'
+
+Import trace for requested module:
+./Logo-navbar.jpeg
+./components/site-header.tsx
+ ⨯ ./Logo-navbar.jpeg
+Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.jpeg'
+
+Import trace for requested module:
+./Logo-navbar.jpeg
+./components/site-header.tsx
+ ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '4031345927'
+}
+ ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '961354374'
+}
+ ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '961354374'
+}
+ ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '961354374'
+}
+ ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '4031345927'
+}
+ ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '4031345927'
+}
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  digest: '576016998'
+}
+ ⨯ Error: Could not find the module "C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '4031345927'
+}
+[TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  page: '/'
+}
+ ⨯ ./Logo-navbar.png
+Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.png'
+
+Import trace for requested module:
+./Logo-navbar.png
+./components/site-footer.tsx
+./app/layout.tsx
+ ⨯ ./Logo-navbar.png
+Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.png'
+
+Import trace for requested module:
+./Logo-navbar.png
+ ⨯ ./Logo-navbar.png
+Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.png'
+
+Import trace for requested module:
+./Logo-navbar.png
+./components/site-footer.tsx
+./app/layout.tsx
+ ⨯ ./Logo-navbar.png
+Error: ENOENT: no such file or directory, open 'C:\Users\ASUS\Downloads\Development\Daphnis\Jayamani\Logo-navbar.png'
+
+Import trace for requested module:
+./Logo-navbar.png
