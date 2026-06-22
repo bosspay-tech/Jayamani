@@ -28,7 +28,7 @@ const CATEGORY_SLUG_ALIASES: Record<string, string> = {
   "ethnic wear": "ethnic-wear",
 };
 
-type DbCategory = { id: string; slug: string; name: string };
+type CategoryRef = { id: string; slug: string };
 type DbProduct = {
   category_id: string | null;
   name: string;
@@ -238,7 +238,9 @@ async function main() {
     throw new Error(`Could not load categories: ${fetchCategoriesError?.message}`);
   }
 
-  const categoryMap = new Map(categories.map((c: DbCategory) => [c.slug, c.id]));
+  const categoryMap = new Map(
+    categories.map((category: CategoryRef) => [category.slug, category.id]),
+  );
   const usedSlugs = new Set<string>();
   const products: DbProduct[] = [];
 
