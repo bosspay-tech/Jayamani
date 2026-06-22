@@ -2,6 +2,7 @@ import type { AuthUser, LoginBody, RegisterBody } from "./types";
 import { validateLoginBody, validateRegisterBody } from "./validators";
 import { apiError, apiSuccess } from "@/lib/api/response";
 import { createRouteClient } from "@/lib/supabase/route";
+import { getSiteUrl } from "@/lib/site-url";
 
 export async function registerUser(request: Request) {
   try {
@@ -14,11 +15,13 @@ export async function registerUser(request: Request) {
 
     const supabase = await createRouteClient();
     const email = body.email.trim().toLowerCase();
+    const siteUrl = getSiteUrl(request);
 
     const { data, error } = await supabase.auth.signUp({
       email,
       password: body.password,
       options: {
+        emailRedirectTo: `${siteUrl}/auth/callback`,
         data: {
           full_name: body.fullName.trim(),
           phone: body.phone?.trim() ?? null,

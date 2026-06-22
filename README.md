@@ -58,6 +58,13 @@ Pages: `/login` and `/register`
 
 **Supabase setup:** Enable Email auth in your Supabase project (Authentication → Providers → Email). If email confirmation is on, users must confirm before they can log in.
 
+Set `NEXT_PUBLIC_SITE_URL` to your live domain (e.g. `https://jayamanicollections.com`) so confirmation emails link to production, not localhost.
+
+In Supabase → **Authentication → URL Configuration**:
+
+- **Site URL:** `https://your-live-domain.com`
+- **Redirect URLs:** add `https://your-live-domain.com/auth/callback` and `http://localhost:3000/auth/callback`
+
 ## Project Structure
 
 ```
