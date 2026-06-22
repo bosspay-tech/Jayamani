@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2d1b2e"/>
+      <stop offset="100%" stop-color="#4a2f4c"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a227"/>
+      <stop offset="100%" stop-color="#e8c96a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="620" cy="180" r="120" fill="#c9a227" opacity="0.15"/>
+  <path d="M280 220 C220 320, 200 520, 240 760 C280 880, 360 920, 400 920 C440 920, 520 880, 560 760 C600 520, 580 320, 520 220 Z" fill="url(#accent)" opacity="0.85"/>
+  <path d="M320 260 C300 380, 310 560, 340 720 C360 820, 390 860, 400 860 C410 860, 440 820, 460 720 C490 560, 500 380, 480 260 Z" fill="#faf7f2" opacity="0.2"/>
+  <text x="400" y="120" text-anchor="middle" fill="#c9a227" font-family="Georgia, serif" font-size="42" letter-spacing="8">SAREES</text>
+</svg>

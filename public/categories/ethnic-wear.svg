@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2d1b2e"/>
+      <stop offset="100%" stop-color="#3d2030"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8c96a"/>
+      <stop offset="100%" stop-color="#c9a227"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="150" cy="200" r="100" fill="#c9a227" opacity="0.15"/>
+  <path d="M300 260 L500 260 L540 360 L520 860 L460 860 L440 520 L360 520 L340 860 L280 860 L260 360 Z" fill="url(#gold)" opacity="0.9"/>
+  <path d="M360 300 L440 300 L440 480 L360 480 Z" fill="#2d1b2e" opacity="0.25"/>
+  <circle cx="400" cy="220" r="28" fill="#faf7f2" opacity="0.9"/>
+  <text x="400" y="120" text-anchor="middle" fill="#c9a227" font-family="Georgia, serif" font-size="32" letter-spacing="5">ETHNIC WEAR</text>
+</svg>

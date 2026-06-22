@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#faf7f2"/>
+      <stop offset="100%" stop-color="#f0ebe3"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="400" cy="500" r="180" fill="#2d1b2e" opacity="0.08"/>
+  <text x="400" y="510" text-anchor="middle" fill="#2d1b2e" font-family="Georgia, serif" font-size="36" letter-spacing="6">JAYAMANI</text>
+</svg>

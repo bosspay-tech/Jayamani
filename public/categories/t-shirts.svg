@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1218"/>
+      <stop offset="100%" stop-color="#2d1b2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="180" cy="800" r="160" fill="#c9a227" opacity="0.12"/>
+  <path d="M260 280 L340 220 L460 220 L540 280 L500 340 L500 760 L300 760 L300 340 Z" fill="#faf7f2" opacity="0.92"/>
+  <path d="M340 220 L400 280 L460 220" fill="none" stroke="#c9a227" stroke-width="6"/>
+  <rect x="300" y="420" width="200" height="8" rx="4" fill="#c9a227" opacity="0.6"/>
+  <rect x="300" y="460" width="140" height="8" rx="4" fill="#c9a227" opacity="0.4"/>
+  <text x="400" y="120" text-anchor="middle" fill="#c9a227" font-family="Georgia, serif" font-size="38" letter-spacing="6">T-SHIRTS</text>
+</svg>

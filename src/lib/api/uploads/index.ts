@@ -1,0 +1,1 @@
+export { uploadProductImage } from "./handlers";

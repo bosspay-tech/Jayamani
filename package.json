@@ -1,23 +1,38 @@
 {
-  "name": "jayamani-export-storefront",
-  "version": "1.0.0",
+  "name": "jayamanicollections",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -H 0.0.0.0",
+    "lint": "eslint",
+    "db:setup": "tsx --env-file=.env scripts/setup-db.ts",
+    "seed": "tsx --env-file=.env scripts/seed.ts",
+    "import:products": "tsx --env-file=.env scripts/import-products.ts",
+    "restore-images": "tsx --env-file=.env scripts/restore-images.ts",
+    "make-admin": "tsx --env-file=.env scripts/make-admin.ts"
   },
   "dependencies": {
-    "lucide-react": "^0.468.0",
-    "next": "^15.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.2",
+    "lucide-react": "^1.21.0",
+    "next": "16.2.9",
+    "pg": "^8.22.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hot-toast": "^2.6.0"
   },
   "devDependencies": {
-    "@types/node": "^20.17.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "typescript": "^5.6.0"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "tailwindcss": "^4",
+    "tsx": "^4.20.6",
+    "typescript": "^5"
   }
 }
