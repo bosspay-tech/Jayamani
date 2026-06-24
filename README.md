@@ -58,12 +58,14 @@ Pages: `/login` and `/register`
 
 **Supabase setup:** Enable Email auth in your Supabase project (Authentication → Providers → Email). If email confirmation is on, users must confirm before they can log in.
 
-Set `NEXT_PUBLIC_SITE_URL` to your live domain (e.g. `https://jayamanicollections.com`) so confirmation emails link to production, not localhost.
+Set **`SITE_URL`** in Coolify (runtime) to your live domain, e.g. `https://jayamanicollections.com`. This fixes confirmation emails linking to localhost when `NEXT_PUBLIC_SITE_URL` was missing at build time.
+
+Also set `NEXT_PUBLIC_SITE_URL` to the same value (enable **build-time** in Coolify if available).
 
 In Supabase → **Authentication → URL Configuration**:
 
-- **Site URL:** `https://your-live-domain.com`
-- **Redirect URLs:** add `https://your-live-domain.com/auth/callback` and `http://localhost:3000/auth/callback`
+- **Site URL:** `https://jayamanicollections.com`
+- **Redirect URLs:** add `https://jayamanicollections.com/auth/callback` and `http://localhost:3000/auth/callback`
 
 ## Project Structure
 

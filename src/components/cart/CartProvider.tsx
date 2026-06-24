@@ -32,26 +32,49 @@ type LegacyCartItem = {
   quantity?: number;
 };
 
+function toNumber(value: unknown): number | null {
+  const numeric = typeof value === "number" ? value : Number(value);
+  return Number.isFinite(numeric) ? numeric : null;
+}
+
+function normalizeProduct(product: Product): Product | null {
+  const price = toNumber(product.price);
+  if (price === null) return null;
+
+  return {
+    ...product,
+    price,
+    stock: toNumber(product.stock) ?? 0,
+  };
+}
+
 function isValidProduct(product: unknown): product is Product {
+  if (typeof product !== "object" || product === null) return false;
+  if (!("id" in product) || !("name" in product) || !("price" in product)) {
+    return false;
+  }
+
+  const candidate = product as Product;
   return (
-    typeof product === "object" &&
-    product !== null &&
-    "id" in product &&
-    "name" in product &&
-    "price" in product &&
-    typeof (product as Product).price === "number"
+    typeof candidate.id === "string" &&
+    typeof candidate.name === "string" &&
+    toNumber(candidate.price) !== null
   );
 }
 
 function isValidCartItem(item: unknown): item is CartItem {
-  return (
-    typeof item === "object" &&
-    item !== null &&
-    "quantity" in item &&
-    typeof (item as CartItem).quantity === "number" &&
-    (item as CartItem).quantity > 0 &&
-    isValidProduct((item as CartItem).product)
-  );
+  if (
+    typeof item !== "object" ||
+    item === null ||
+    !("quantity" in item) ||
+    typeof (item as CartItem).quantity !== "number" ||
+    (item as CartItem).quantity < 1 ||
+    !isValidProduct((item as CartItem).product)
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 function migrateLegacyItem(item: LegacyCartItem): CartItem | null {
@@ -82,15 +105,24 @@ function migrateLegacyItem(item: LegacyCartItem): CartItem | null {
 }
 
 function normalizeCartItem(item: unknown): CartItem | null {
-  if (isValidCartItem(item)) {
-    return item;
-  }
-
   if (typeof item === "object" && item !== null && "unitPrice" in item) {
-    return migrateLegacyItem(item as LegacyCartItem);
+    const legacy = migrateLegacyItem(item as LegacyCartItem);
+    if (!legacy) return null;
+    const product = normalizeProduct(legacy.product);
+    if (!product) return null;
+    return { quantity: legacy.quantity, product };
   }
 
-  return null;
+  if (!isValidCartItem(item)) return null;
+
+  const cartItem = item as CartItem;
+  const product = normalizeProduct(cartItem.product);
+  if (!product) return null;
+
+  return {
+    quantity: cartItem.quantity,
+    product,
+  };
 }
 
 function parseStoredCart(raw: string): CartItem[] {
@@ -147,16 +179,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items, hydrated]);
 
   const addItem = useCallback((product: Product, quantity = 1) => {
+    const normalized = normalizeProduct(product);
+    if (!normalized) return;
+
     setItems((current) => {
-      const existing = current.find((item) => item.product.id === product.id);
+      const existing = current.find((item) => item.product.id === normalized.id);
       if (existing) {
         return current.map((item) =>
-          item.product.id === product.id
+          item.product.id === normalized.id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...current, { product, quantity }];
+      return [...current, { product: normalized, quantity }];
     });
   }, []);
 

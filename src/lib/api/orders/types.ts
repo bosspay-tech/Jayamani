@@ -1,5 +1,6 @@
 export interface OrderItemInput {
   productId: string;
+  productSlug?: string;
   quantity: number;
 }
 

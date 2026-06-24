@@ -4,6 +4,14 @@ const supabaseHostname = process.env.NEXT_PUBLIC_SUPABASE_URL
   ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
   : undefined;
 
+// Pre-migration Supabase project — product/category images may still reference this host.
+const legacySupabaseHostname = "vbaopzltggkuffafqnpi.supabase.co";
+
+const supabaseHostnames = [
+  legacySupabaseHostname,
+  ...(supabaseHostname ? [supabaseHostname] : []),
+].filter((hostname, index, all) => all.indexOf(hostname) === index);
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -20,15 +28,11 @@ const nextConfig: NextConfig = {
         hostname: "luxeria.in",
         pathname: "/wp-content/uploads/**",
       },
-      ...(supabaseHostname
-        ? [
-            {
-              protocol: "https" as const,
-              hostname: supabaseHostname,
-              pathname: "/storage/v1/object/public/**",
-            },
-          ]
-        : []),
+      ...supabaseHostnames.map((hostname) => ({
+        protocol: "https" as const,
+        hostname,
+        pathname: "/storage/v1/object/public/**",
+      })),
     ],
   },
 };
