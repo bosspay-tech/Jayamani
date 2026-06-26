@@ -1,4 +1,5 @@
 import { SiteShell } from "@/components/layout/SiteShell";
+import { CategoryFilterDropdown } from "@/components/shop/CategoryFilterDropdown";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { getCategories, getProducts } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -45,35 +46,34 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-wrap gap-2">
-          <FilterPill
-            href="/shop"
-            active={!activeCategory && !activeFilter}
-            label="All"
-          />
-          <FilterPill
-            href="/shop?filter=new"
-            active={activeFilter === "new"}
-            label="New Arrivals"
-          />
-          <FilterPill
-            href="/shop?filter=featured"
-            active={activeFilter === "featured"}
-            label="Featured"
-          />
-          <FilterPill
-            href="/shop?filter=popular"
-            active={activeFilter === "popular"}
-            label="Popular"
-          />
-          {categories.map((category) => (
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="flex flex-wrap gap-2">
             <FilterPill
-              key={category.id}
-              href={`/shop?category=${category.slug}`}
-              active={activeCategory === category.slug}
-              label={category.name}
+              href="/shop"
+              active={!activeCategory && !activeFilter}
+              label="All"
             />
-          ))}
+            <FilterPill
+              href="/shop?filter=new"
+              active={activeFilter === "new"}
+              label="New Arrivals"
+            />
+            <FilterPill
+              href="/shop?filter=featured"
+              active={activeFilter === "featured"}
+              label="Featured"
+            />
+            <FilterPill
+              href="/shop?filter=popular"
+              active={activeFilter === "popular"}
+              label="Popular"
+            />
+          </div>
+
+          <CategoryFilterDropdown
+            categories={categories}
+            activeCategory={activeCategory}
+          />
         </div>
 
         {allProducts.length === 0 ? (
