@@ -11,7 +11,8 @@
     "seed": "tsx --env-file=.env scripts/seed.ts",
     "import:products": "tsx --env-file=.env scripts/import-products.ts",
     "restore-images": "tsx --env-file=.env scripts/restore-images.ts",
-    "make-admin": "tsx --env-file=.env scripts/make-admin.ts"
+    "make-admin": "tsx --env-file=.env scripts/make-admin.ts",
+    "prices:round": "tsx --env-file=.env scripts/round-product-prices.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",

@@ -2,15 +2,27 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ChevronDown, Pencil, Plus, Trash2 } from "lucide-react";
 import type { Product } from "@/lib/types";
-import { formatPrice } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
+
+type PriceSort = "default" | "price-asc" | "price-desc";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [priceSort, setPriceSort] = useState<PriceSort>("price-asc");
+
+  const sortedProducts = useMemo(() => {
+    if (priceSort === "default") return products;
+
+    return [...products].sort((a, b) => {
+      const diff = Number(a.price) - Number(b.price);
+      return priceSort === "price-asc" ? diff : -diff;
+    });
+  }, [products, priceSort]);
 
   async function loadProducts() {
     const response = await fetch("/api/admin/products");
@@ -47,13 +59,16 @@ export default function AdminProductsPage() {
             Create, edit, and remove store products.
           </p>
         </div>
-        <Link
-          href="/admin/products/new"
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground uppercase"
-        >
-          <Plus className="h-4 w-4" />
-          Add Product
-        </Link>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <PriceSortDropdown value={priceSort} onChange={setPriceSort} />
+          <Link
+            href="/admin/products/new"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground uppercase"
+          >
+            <Plus className="h-4 w-4" />
+            Add Product
+          </Link>
+        </div>
       </div>
 
       {loading ? (
@@ -80,7 +95,7 @@ export default function AdminProductsPage() {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {sortedProducts.map((product) => (
                 <tr key={product.id} className="border-b border-border/70">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
@@ -144,6 +159,37 @@ export default function AdminProductsPage() {
           </table>
         </div>
       )}
+    </div>
+  );
+}
+
+function PriceSortDropdown({
+  value,
+  onChange,
+}: {
+  value: PriceSort;
+  onChange: (value: PriceSort) => void;
+}) {
+  return (
+    <div className="relative min-w-[190px]">
+      <select
+        value={value}
+        onChange={(event) => onChange(event.target.value as PriceSort)}
+        aria-label="Sort products by price"
+        className={cn(
+          "w-full appearance-none rounded-full border border-border bg-surface py-2.5 pr-10 pl-4 text-sm font-medium outline-none transition",
+          "focus:border-accent focus:ring-2 focus:ring-accent/20",
+          value === "default" ? "text-muted-foreground" : "text-foreground"
+        )}
+      >
+        <option value="default">Sort: Newest</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+      </select>
+      <ChevronDown
+        className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+        aria-hidden
+      />
     </div>
   );
 }
