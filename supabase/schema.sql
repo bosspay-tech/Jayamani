@@ -201,6 +201,8 @@ create table if not exists orders (
   subtotal numeric(10, 2) not null,
   shipping numeric(10, 2) not null default 0,
   total numeric(10, 2) not null,
+  payment_txnid text,
+  payment_id text,
   created_at timestamptz default now()
 );
 

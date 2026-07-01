@@ -15,8 +15,7 @@ const inputClass =
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
-  const shipping = subtotal >= 2500 || subtotal === 0 ? 0 : 99;
-  const total = subtotal + shipping;
+  const total = subtotal;
 
   const [form, setForm] = useState({
     customerName: "",
@@ -71,6 +70,17 @@ export default function CheckoutPage() {
 
     if (!response.ok || !result.success) {
       toast.error(result.error ?? "Failed to place order");
+      return;
+    }
+
+    if (result.data?.paymentUrl) {
+      const paymentUrl = result.data.paymentUrl as string;
+      if (!paymentUrl.includes("easebuzz.in")) {
+        toast.error("Invalid payment gateway response. Please try again.");
+        return;
+      }
+      clearCart();
+      window.location.assign(paymentUrl);
       return;
     }
 
@@ -197,7 +207,7 @@ export default function CheckoutPage() {
             disabled={loading}
             className="w-full rounded-full bg-accent py-3 text-sm font-semibold text-accent-foreground uppercase transition hover:brightness-110 disabled:opacity-60"
           >
-            {loading ? "Placing Order..." : "Place Order"}
+            {loading ? "Redirecting to Payment..." : "Pay with Easebuzz"}
           </button>
         </form>
 
@@ -232,7 +242,7 @@ export default function CheckoutPage() {
             </div>
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Shipping</dt>
-              <dd>{shipping === 0 ? "Free" : formatPrice(shipping)}</dd>
+              <dd>Free</dd>
             </div>
             <div className="flex justify-between border-t border-border pt-2 text-base font-semibold">
               <dt>Total</dt>

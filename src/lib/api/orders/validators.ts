@@ -25,6 +25,6 @@ export function generateOrderNumber() {
   return `JM-${date}-${suffix}`;
 }
 
-export function calculateShipping(subtotal: number) {
-  return subtotal >= 2500 || subtotal === 0 ? 0 : 99;
+export function calculateShipping(_subtotal: number) {
+  return 0;
 }

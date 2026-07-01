@@ -9,8 +9,7 @@ import { formatPrice } from "@/lib/utils";
 
 export default function CartPage() {
   const { items, subtotal, updateQuantity, removeItem, clearCart } = useCart();
-  const shipping = subtotal >= 2500 || subtotal === 0 ? 0 : 99;
-  const total = subtotal + shipping;
+  const total = subtotal;
 
   return (
     <SiteShell>
@@ -124,15 +123,8 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-muted-foreground">Shipping</dt>
-                  <dd className="font-medium">
-                    {shipping === 0 ? "Free" : formatPrice(shipping)}
-                  </dd>
+                  <dd className="font-medium">Free</dd>
                 </div>
-                {subtotal > 0 && subtotal < 2500 && (
-                  <p className="text-xs text-accent">
-                    Add {formatPrice(2500 - subtotal)} more for free shipping
-                  </p>
-                )}
                 <div className="flex justify-between border-t border-border pt-3 text-base">
                   <dt className="font-semibold">Total</dt>
                   <dd className="font-semibold">{formatPrice(total)}</dd>

@@ -13,6 +13,8 @@ function OrderDetailContent() {
   const searchParams = useSearchParams();
   const orderId = params.id as string;
   const placed = searchParams.get("placed") === "1";
+  const paid = searchParams.get("paid") === "1";
+  const paymentFailed = searchParams.get("payment") === "failed";
   const [order, setOrder] = useState<Order | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -55,7 +57,21 @@ function OrderDetailContent() {
           </div>
         ) : (
           <div className="space-y-6">
-            {placed && (
+            {paid && (
+              <div className="rounded-2xl bg-emerald-100 px-5 py-4 text-sm text-emerald-900">
+                Payment successful! Your order <strong>{order.order_number}</strong>{" "}
+                is confirmed.
+              </div>
+            )}
+
+            {paymentFailed && (
+              <div className="rounded-2xl bg-rose-100 px-5 py-4 text-sm text-rose-900">
+                Payment failed or was cancelled. You can try checkout again or contact
+                support with order <strong>{order.order_number}</strong>.
+              </div>
+            )}
+
+            {placed && !paid && (
               <div className="rounded-2xl bg-accent/15 px-5 py-4 text-sm">
                 Thank you! Your order <strong>{order.order_number}</strong> has
                 been placed successfully.
