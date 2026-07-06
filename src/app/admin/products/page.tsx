@@ -3,26 +3,78 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { ChevronDown, Pencil, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { cn, formatPrice } from "@/lib/utils";
 
 type PriceSort = "default" | "price-asc" | "price-desc";
+
+function parsePriceQuery(query: string) {
+  const trimmed = query.trim();
+  const rangeMatch = trimmed.match(/^(\d+(?:\.\d+)?)\s*(?:-|to)\s*(\d+(?:\.\d+)?)$/i);
+
+  if (rangeMatch) {
+    const min = Number(rangeMatch[1]);
+    const max = Number(rangeMatch[2]);
+    return { type: "range" as const, min: Math.min(min, max), max: Math.max(min, max) };
+  }
+
+  if (/^\d+(?:\.\d+)?$/.test(trimmed)) {
+    return { type: "exact" as const, value: Number(trimmed) };
+  }
+
+  return { type: "text" as const };
+}
+
+function matchesProductSearch(product: Product, query: string) {
+  const trimmed = query.trim();
+  if (!trimmed) return true;
+
+  const priceQuery = parsePriceQuery(trimmed);
+  const price = Number(product.price);
+
+  if (priceQuery.type === "range") {
+    return price >= priceQuery.min && price <= priceQuery.max;
+  }
+
+  const normalized = trimmed.toLowerCase();
+  const textMatch =
+    product.name.toLowerCase().includes(normalized) ||
+    product.slug.toLowerCase().includes(normalized) ||
+    (product.categories?.name?.toLowerCase().includes(normalized) ?? false);
+
+  if (priceQuery.type === "exact") {
+    return textMatch || price === priceQuery.value;
+  }
+
+  const numericPart = normalized.replace(/[₹,\s]/g, "");
+  const priceMatch = numericPart.length > 0 && String(price).includes(numericPart);
+
+  return textMatch || priceMatch;
+}
+
+function sortProducts(products: Product[], priceSort: PriceSort) {
+  if (priceSort === "default") return products;
+
+  return [...products].sort((a, b) => {
+    const diff = Number(a.price) - Number(b.price);
+    return priceSort === "price-asc" ? diff : -diff;
+  });
+}
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [priceSort, setPriceSort] = useState<PriceSort>("price-asc");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const sortedProducts = useMemo(() => {
-    if (priceSort === "default") return products;
-
-    return [...products].sort((a, b) => {
-      const diff = Number(a.price) - Number(b.price);
-      return priceSort === "price-asc" ? diff : -diff;
-    });
-  }, [products, priceSort]);
+  const displayedProducts = useMemo(() => {
+    const filtered = products.filter((product) =>
+      matchesProductSearch(product, searchQuery)
+    );
+    return sortProducts(filtered, priceSort);
+  }, [products, searchQuery, priceSort]);
 
   async function loadProducts() {
     const response = await fetch("/api/admin/products");
@@ -60,6 +112,7 @@ export default function AdminProductsPage() {
           </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <ProductSearchInput value={searchQuery} onChange={setSearchQuery} />
           <PriceSortDropdown value={priceSort} onChange={setPriceSort} />
           <Link
             href="/admin/products/new"
@@ -81,6 +134,17 @@ export default function AdminProductsPage() {
             or add your first product.
           </p>
         </div>
+      ) : displayedProducts.length === 0 ? (
+        <div className="mt-10 rounded-2xl border border-dashed border-border bg-surface px-6 py-12 text-center">
+          <p className="text-muted-foreground">No products match your search.</p>
+          <button
+            type="button"
+            onClick={() => setSearchQuery("")}
+            className="mt-4 text-sm font-medium text-accent hover:underline"
+          >
+            Clear search
+          </button>
+        </div>
       ) : (
         <div className="mt-8 overflow-x-auto rounded-2xl border border-border bg-surface">
           <table className="min-w-full text-left text-sm">
@@ -95,7 +159,7 @@ export default function AdminProductsPage() {
               </tr>
             </thead>
             <tbody>
-              {sortedProducts.map((product) => (
+              {displayedProducts.map((product) => (
                 <tr key={product.id} className="border-b border-border/70">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
@@ -159,6 +223,34 @@ export default function AdminProductsPage() {
           </table>
         </div>
       )}
+    </div>
+  );
+}
+
+function ProductSearchInput({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <div className="relative min-w-[240px] flex-1 sm:max-w-sm">
+      <Search
+        className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+        aria-hidden
+      />
+      <input
+        type="search"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder="Search name, category, price, or 500-2000"
+        aria-label="Search products"
+        className={cn(
+          "w-full rounded-full border border-border bg-surface py-2.5 pr-4 pl-10 text-sm outline-none transition",
+          "placeholder:text-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/20"
+        )}
+      />
     </div>
   );
 }
