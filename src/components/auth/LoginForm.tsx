@@ -10,15 +10,11 @@ import {
   AuthSubmitButton,
 } from "@/components/auth/AuthForm";
 
-const DEMO_EMAIL = process.env.NEXT_PUBLIC_DEMO_LOGIN_EMAIL?.trim() ?? "";
-const DEMO_PASSWORD = process.env.NEXT_PUBLIC_DEMO_LOGIN_PASSWORD?.trim() ?? "";
-const SHOW_DEMO_LOGIN = Boolean(DEMO_EMAIL && DEMO_PASSWORD);
-
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirect") || "/";
-  const [email, setEmail] = useState(SHOW_DEMO_LOGIN ? DEMO_EMAIL : "");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
@@ -64,28 +60,6 @@ export function LoginForm() {
       }
     >
       <form onSubmit={handleSubmit} className="space-y-4">
-        {SHOW_DEMO_LOGIN && (
-          <div className="rounded-2xl border border-border bg-muted/40 p-4 text-sm">
-            <p className="font-semibold text-foreground">Demo login credentials</p>
-            <p className="mt-2 text-muted-foreground">
-              Email: <span className="font-medium text-foreground">{DEMO_EMAIL}</span>
-            </p>
-            <p className="mt-1 text-muted-foreground">
-              Password: <span className="font-medium text-foreground">{DEMO_PASSWORD}</span>
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setEmail(DEMO_EMAIL);
-                setPassword(DEMO_PASSWORD);
-              }}
-              className="mt-3 text-sm font-semibold text-accent hover:underline"
-            >
-              Use demo credentials
-            </button>
-          </div>
-        )}
-
         <AuthField
           id="email"
           label="Email"
