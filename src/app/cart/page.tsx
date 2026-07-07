@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { SiteShell } from "@/components/layout/SiteShell";
+import { cartLineKey } from "@/lib/product-sizes";
 import { formatPrice } from "@/lib/utils";
 
 export default function CartPage() {
@@ -40,9 +41,12 @@ export default function CartPage() {
         ) : (
           <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
             <div className="space-y-4">
-              {items.map((item) => (
+              {items.map((item) => {
+                const lineKey = cartLineKey(item.product.id, item.size);
+
+                return (
                 <div
-                  key={item.product.id}
+                  key={lineKey}
                   className="flex gap-4 rounded-2xl border border-border bg-surface p-4 sm:gap-6"
                 >
                   <div className="relative h-28 w-24 shrink-0 overflow-hidden rounded-xl sm:h-32 sm:w-28">
@@ -67,11 +71,12 @@ export default function CartPage() {
                         </Link>
                         <p className="mt-1 text-sm text-muted-foreground">
                           {formatPrice(item.product.price)}
+                          {item.size ? ` · Size: ${item.size}` : ""}
                         </p>
                       </div>
                       <button
                         type="button"
-                        onClick={() => removeItem(item.product.id)}
+                        onClick={() => removeItem(lineKey)}
                         className="text-muted-foreground transition hover:text-rose-600"
                         aria-label="Remove item"
                       >
@@ -84,7 +89,7 @@ export default function CartPage() {
                         <button
                           type="button"
                           onClick={() =>
-                            updateQuantity(item.product.id, item.quantity - 1)
+                            updateQuantity(lineKey, item.quantity - 1)
                           }
                           className="p-2 text-muted-foreground hover:text-foreground"
                           aria-label="Decrease quantity"
@@ -97,7 +102,7 @@ export default function CartPage() {
                         <button
                           type="button"
                           onClick={() =>
-                            updateQuantity(item.product.id, item.quantity + 1)
+                            updateQuantity(lineKey, item.quantity + 1)
                           }
                           className="p-2 text-muted-foreground hover:text-foreground"
                           aria-label="Increase quantity"
@@ -111,7 +116,8 @@ export default function CartPage() {
                     </div>
                   </div>
                 </div>
-              ))}
+              );
+              })}
             </div>
 
             <aside className="h-fit rounded-3xl border border-border bg-surface p-6">

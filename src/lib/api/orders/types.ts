@@ -2,6 +2,7 @@ export interface OrderItemInput {
   productId: string;
   productSlug?: string;
   quantity: number;
+  size?: string;
 }
 
 export interface CreateOrderBody {
@@ -23,6 +24,7 @@ export interface OrderItem {
   product_image_url: string | null;
   price: number;
   quantity: number;
+  size?: string | null;
   created_at: string;
 }
 

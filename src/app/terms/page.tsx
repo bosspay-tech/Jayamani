@@ -1,4 +1,5 @@
 import { PolicyPage } from "@/components/layout/PolicyPage";
+import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/contact";
 
 export const metadata = {
   title: "Terms & Conditions",
@@ -129,14 +130,14 @@ export default function TermsPage() {
             <p>
               For questions about these terms, contact us at{" "}
               <a
-                href="mailto:sales@jayamanicollections.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="text-accent hover:underline"
               >
-                sales@jayamanicollections.com
+                {CONTACT_EMAIL}
               </a>{" "}
               or call{" "}
-              <a href="tel:9384099029" className="text-accent hover:underline">
-                9384099029
+              <a href={`tel:${CONTACT_PHONE}`} className="text-accent hover:underline">
+                {CONTACT_PHONE}
               </a>
               .
             </p>

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import type { Product } from "@/lib/types";
+import { resolveProductSizes } from "@/lib/product-sizes";
 import { calculateDiscount, cn, formatPrice } from "@/lib/utils";
 
 export function ProductCard({
@@ -17,6 +18,10 @@ export function ProductCard({
   className?: string;
 }) {
   const { addItem } = useCart();
+  const sizes = resolveProductSizes(
+    product.sizes,
+    product.categories?.slug ?? null
+  );
   const discount =
     product.badge ?? calculateDiscount(product.price, product.compare_at_price);
   const [justAdded, setJustAdded] = useState(false);
@@ -77,9 +82,9 @@ export function ProductCard({
           <button
             type="button"
             onClick={() => {
-              addItem(product);
+              addItem(product, 1, sizes[0]);
               setJustAdded(true);
-              toast.success("Added to cart");
+              toast.success(sizes[0] ? `Added to cart (${sizes[0]})` : "Added to cart");
             }}
             className={cn(
               "inline-flex flex-1 items-center justify-center gap-2 rounded-full px-3 py-2.5 text-xs font-semibold tracking-wide uppercase transition active:scale-[0.98]",

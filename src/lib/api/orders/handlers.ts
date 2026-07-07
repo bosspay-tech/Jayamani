@@ -16,6 +16,55 @@ import { isEasebuzzConfigured } from "@/lib/easebuzz/config";
 import { initiateEasebuzzPayment } from "@/lib/easebuzz/client";
 import { getSiteUrl } from "@/lib/site-url";
 
+type OrderItemInsert = {
+  order_id: string;
+  product_id: string;
+  product_name: string;
+  product_image_url: string | null;
+  price: number;
+  quantity: number;
+  size?: string | null;
+};
+
+function isMissingSizeColumnError(message: string) {
+  const normalized = message.toLowerCase();
+  return (
+    normalized.includes("size") &&
+    (normalized.includes("schema cache") ||
+      normalized.includes("column") ||
+      normalized.includes("does not exist"))
+  );
+}
+
+async function insertOrderItems(
+  admin: ReturnType<typeof createAdminClient>,
+  orderItems: OrderItemInsert[]
+) {
+  const { error } = await admin.from("order_items").insert(orderItems);
+
+  if (!error) {
+    return { ok: true as const };
+  }
+
+  if (isMissingSizeColumnError(error.message)) {
+    const withoutSize = orderItems.map(({ size: _size, ...item }) => item);
+    const retry = await admin.from("order_items").insert(withoutSize);
+
+    if (!retry.error) {
+      console.warn(
+        "order_items.size column missing; saved items without size. Run supabase/migrations/add_product_sizes.sql."
+      );
+      return { ok: true as const };
+    }
+
+    console.error("Order items insert failed after retry:", retry.error);
+    return { ok: false as const, error: retry.error.message };
+  }
+
+  console.error("Order items insert failed:", error);
+  return { ok: false as const, error: error.message };
+}
+
 export async function createOrder(request: Request) {
   try {
     const body = (await request.json()) as CreateOrderBody;
@@ -30,12 +79,17 @@ export async function createOrder(request: Request) {
     }
 
     const routeClient = await createRouteClient();
-    const {
-      data: { user },
-    } = await routeClient.auth.getUser();
-
     const admin = createAdminClient();
-    const productLookup = await loadOrderProducts(admin, body.items);
+
+    const [
+      {
+        data: { user },
+      },
+      productLookup,
+    ] = await Promise.all([
+      routeClient.auth.getUser(),
+      loadOrderProducts(admin, body.items),
+    ]);
 
     if ("error" in productLookup) {
       return apiError(productLookup.error, 400);
@@ -111,20 +165,26 @@ export async function createOrder(request: Request) {
       return apiError(orderError?.message ?? "Failed to create order.", 500);
     }
 
-    const orderItems = resolvedLines.map(({ item, product }) => ({
+    const orderItems: OrderItemInsert[] = resolvedLines.map(({ item, product }) => ({
       order_id: order.id,
       product_id: product.id,
       product_name: product.name,
       product_image_url: product.image_url,
       price: product.price,
       quantity: item.quantity,
+      size: item.size?.trim() || null,
     }));
 
-    const { error: itemsError } = await admin.from("order_items").insert(orderItems);
+    const itemsResult = await insertOrderItems(admin, orderItems);
 
-    if (itemsError) {
+    if (!itemsResult.ok) {
       await admin.from("orders").delete().eq("id", order.id);
-      return apiError("Failed to save order items.", 500);
+      return apiError(
+        isMissingSizeColumnError(itemsResult.error)
+          ? "Order database schema is outdated. Please run the product sizes migration in Supabase."
+          : "Failed to save order items.",
+        500
+      );
     }
 
     const firstName = body.customerName.trim().split(/\s+/)[0] || "Customer";
@@ -145,15 +205,9 @@ export async function createOrder(request: Request) {
       return apiError(payment.error, 502);
     }
 
-    const { data: fullOrder } = await admin
-      .from("orders")
-      .select("*, order_items(*)")
-      .eq("id", order.id)
-      .single();
-
     return apiSuccess(
       {
-        order: fullOrder,
+        order: { id: order.id, order_number: order.order_number },
         paymentUrl: payment.paymentUrl,
         message: "Redirecting to payment...",
       },

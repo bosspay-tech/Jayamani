@@ -8,6 +8,8 @@
     "start": "next start -H 0.0.0.0",
     "lint": "eslint",
     "db:setup": "tsx --env-file=.env scripts/setup-db.ts",
+    "db:bosspay-txns": "tsx --env-file=.env scripts/migrate-bosspay-txns.ts",
+    "db:product-sizes": "tsx --env-file=.env scripts/migrate-product-sizes.ts",
     "seed": "tsx --env-file=.env scripts/seed.ts",
     "import:products": "tsx --env-file=.env scripts/import-products.ts",
     "restore-images": "tsx --env-file=.env scripts/restore-images.ts",

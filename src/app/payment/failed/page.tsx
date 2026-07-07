@@ -4,6 +4,7 @@ import Link from "next/link";
 import { XCircle } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { OrderItemsList } from "@/components/orders/OrderItemsList";
 import { SiteShell } from "@/components/layout/SiteShell";
 import type { Order } from "@/lib/api/orders";
 import { formatPrice } from "@/lib/utils";
@@ -59,6 +60,12 @@ function PaymentFailedContent() {
             <p className="mt-4 text-sm text-muted-foreground">
               Order total: <span className="font-semibold text-foreground">{formatPrice(order.total)}</span>
             </p>
+            {order.order_items && order.order_items.length > 0 && (
+              <div className="mt-6 border-t border-border pt-4">
+                <p className="text-sm font-medium text-foreground">Order items</p>
+                <OrderItemsList items={order.order_items} className="mt-3 space-y-3" />
+              </div>
+            )}
           </div>
         ) : error ? (
           <p className="mt-8 text-sm text-muted-foreground">{error}</p>

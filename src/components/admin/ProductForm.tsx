@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { slugify } from "@/lib/utils";
+import { formatSizesInput } from "@/lib/product-sizes";
 import type { Category } from "@/lib/types";
 
 export interface ProductFormValues {
@@ -16,6 +17,7 @@ export interface ProductFormValues {
   image_url: string;
   badge: string;
   category_id: string;
+  sizes: string;
   stock: string;
   is_featured: boolean;
   is_new_arrival: boolean;
@@ -31,6 +33,7 @@ const emptyValues: ProductFormValues = {
   image_url: "",
   badge: "",
   category_id: "",
+  sizes: "",
   stock: "100",
   is_featured: false,
   is_new_arrival: false,
@@ -101,6 +104,7 @@ export function ProductForm({
       image_url: values.image_url,
       badge: values.badge || null,
       category_id: values.category_id || null,
+      sizes: values.sizes,
       stock: Number(values.stock),
       is_featured: values.is_featured,
       is_new_arrival: values.is_new_arrival,
@@ -192,6 +196,14 @@ export function ProductForm({
             value={values.stock}
             onChange={(e) => updateField("stock", e.target.value)}
             className={inputClass}
+          />
+        </Field>
+        <Field label="Sizes">
+          <input
+            value={values.sizes}
+            onChange={(e) => updateField("sizes", e.target.value)}
+            className={inputClass}
+            placeholder="S, M, L, XL or Free Size"
           />
         </Field>
       </div>

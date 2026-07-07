@@ -1,5 +1,5 @@
 import type { ProductUpdateBody } from "./types";
-import { normalizeProductBody, validateProductBody } from "./validators";
+import { normalizeProductBody, normalizeSizesField, validateProductBody } from "./validators";
 import { requireAdmin } from "@/lib/api/admin/guard";
 import { apiError, apiSuccess } from "@/lib/api/response";
 
@@ -101,6 +101,9 @@ export async function updateProduct(id: string, request: Request) {
     }
     if (body.badge !== undefined) updates.badge = body.badge?.trim() || null;
     if (body.category_id !== undefined) updates.category_id = body.category_id;
+    if (body.sizes !== undefined) {
+      updates.sizes = normalizeSizesField(body.sizes);
+    }
     if (body.is_featured !== undefined) updates.is_featured = body.is_featured;
     if (body.is_new_arrival !== undefined) {
       updates.is_new_arrival = body.is_new_arrival;

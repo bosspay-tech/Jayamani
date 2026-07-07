@@ -17,6 +17,7 @@ export interface Product {
   compare_at_price: number | null;
   image_url: string | null;
   images: string[];
+  sizes?: string[];
   badge: string | null;
   is_featured: boolean;
   is_new_arrival: boolean;
@@ -29,4 +30,5 @@ export interface Product {
 export interface CartItem {
   product: Product;
   quantity: number;
+  size?: string;
 }

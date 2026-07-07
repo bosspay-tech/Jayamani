@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
+import { OrderItemsList } from "@/components/orders/OrderItemsList";
 import { SiteShell } from "@/components/layout/SiteShell";
 import type { Order } from "@/lib/api/orders";
 import { formatPrice } from "@/lib/utils";
@@ -112,33 +112,10 @@ function OrderDetailContent() {
 
             <div className="rounded-3xl border border-border bg-surface p-6">
               <h2 className="font-display text-xl">Items</h2>
-              <div className="mt-4 space-y-4">
-                {order.order_items?.map((item) => (
-                  <div key={item.id} className="flex gap-4">
-                    <div className="relative h-16 w-14 overflow-hidden rounded-lg bg-muted">
-                      {item.product_image_url && (
-                        <Image
-                          src={item.product_image_url}
-                          alt={item.product_name}
-                          fill
-                          className="object-cover"
-                        />
-                      )}
-                    </div>
-                    <div className="flex flex-1 items-center justify-between gap-3 text-sm">
-                      <div>
-                        <p className="font-medium">{item.product_name}</p>
-                        <p className="text-muted-foreground">
-                          Qty: {item.quantity}
-                        </p>
-                      </div>
-                      <p className="font-semibold">
-                        {formatPrice(item.price * item.quantity)}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <OrderItemsList
+                items={order.order_items ?? []}
+                className="mt-4 space-y-4"
+              />
 
               <dl className="mt-6 space-y-2 border-t border-border pt-4 text-sm">
                 <div className="flex justify-between">

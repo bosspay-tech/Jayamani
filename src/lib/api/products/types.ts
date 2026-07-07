@@ -7,6 +7,7 @@ export interface ProductBody {
   image_url?: string;
   badge?: string | null;
   category_id?: string | null;
+  sizes?: string[] | string;
   is_featured?: boolean;
   is_new_arrival?: boolean;
   is_popular?: boolean;

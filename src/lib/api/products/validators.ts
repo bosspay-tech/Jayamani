@@ -1,4 +1,5 @@
 import type { ProductBody, ProductUpdateBody } from "./types";
+import { normalizeSizes, parseSizesInput } from "@/lib/product-sizes";
 import { slugify } from "@/lib/utils";
 
 export function validateProductBody(body: ProductBody): string | null;
@@ -42,6 +43,20 @@ export function validateProductBody(
   return null;
 }
 
+export function normalizeSizesField(
+  sizes: ProductBody["sizes"] | undefined
+): string[] {
+  if (Array.isArray(sizes)) {
+    return normalizeSizes(sizes);
+  }
+
+  if (typeof sizes === "string") {
+    return parseSizesInput(sizes);
+  }
+
+  return [];
+}
+
 export function normalizeProductBody(body: ProductBody) {
   const name = body.name.trim();
   const slug = body.slug?.trim() || slugify(name);
@@ -58,6 +73,7 @@ export function normalizeProductBody(body: ProductBody) {
     image_url: body.image_url?.trim() || null,
     badge: body.badge?.trim() || null,
     category_id: body.category_id || null,
+    sizes: normalizeSizesField(body.sizes),
     is_featured: body.is_featured ?? false,
     is_new_arrival: body.is_new_arrival ?? false,
     is_popular: body.is_popular ?? false,

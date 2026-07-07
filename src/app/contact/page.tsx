@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { SiteShell } from "@/components/layout/SiteShell";
+import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/contact";
 import { createClient } from "@/lib/supabase/client";
 
 export default function ContactPage() {
@@ -57,14 +58,14 @@ export default function ContactPage() {
             <ContactItem
               icon={Phone}
               label="Phone"
-              value="9384099029"
-              href="tel:9384099029"
+              value={CONTACT_PHONE}
+              href={`tel:${CONTACT_PHONE}`}
             />
             <ContactItem
               icon={Mail}
               label="Email"
-              value="sales@jayamanicollections.com"
-              href="mailto:sales@jayamanicollections.com"
+              value={CONTACT_EMAIL}
+              href={`mailto:${CONTACT_EMAIL}`}
             />
             <ContactItem
               icon={MapPin}

@@ -1,4 +1,5 @@
 import { PolicyPage } from "@/components/layout/PolicyPage";
+import { CONTACT_EMAIL } from "@/lib/contact";
 
 export const metadata = {
   title: "Privacy Policy",
@@ -149,10 +150,10 @@ export default function PrivacyPage() {
             <p>
               For privacy-related questions or requests, email{" "}
               <a
-                href="mailto:sales@jayamanicollections.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="text-accent hover:underline"
               >
-                sales@jayamanicollections.com
+                {CONTACT_EMAIL}
               </a>{" "}
               or write to us at No. 36/37, Sri Krishna Nagar, 3rd Street
               Annexe, Noombal, Tiruvallur, Tamil Nadu 600077.

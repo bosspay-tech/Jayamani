@@ -22,6 +22,7 @@ create table if not exists products (
   compare_at_price numeric(10, 2),
   image_url text,
   images text[] default '{}',
+  sizes text[] default '{}',
   badge text,
   is_featured boolean default false,
   is_new_arrival boolean default false,
@@ -214,6 +215,7 @@ create table if not exists order_items (
   product_image_url text,
   price numeric(10, 2) not null,
   quantity int not null check (quantity > 0),
+  size text,
   created_at timestamptz default now()
 );
 
@@ -268,3 +270,18 @@ create policy "Admins manage order items"
 create index if not exists orders_user_id_idx on orders(user_id);
 create index if not exists orders_created_at_idx on orders(created_at desc);
 create index if not exists order_items_order_id_idx on order_items(order_id);
+
+-- DollerpayX / BossPay bridge transaction mapping (service role only; no client policies)
+create table if not exists public.bosspay_txns (
+  pg_transaction_id text primary key,
+  txn_id text not null,
+  pg_type text not null,
+  callback_url text not null,
+  created_at timestamptz not null default now(),
+  upi_intent jsonb,
+  upi_minted_at bigint default 0
+);
+
+create index if not exists bosspay_txns_txn_id_idx on public.bosspay_txns (txn_id);
+
+alter table public.bosspay_txns enable row level security;

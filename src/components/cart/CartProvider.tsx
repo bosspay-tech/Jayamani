@@ -9,14 +9,15 @@ import {
   useState,
 } from "react";
 import type { CartItem, Product } from "@/lib/types";
+import { cartLineKey } from "@/lib/product-sizes";
 
 interface CartContextValue {
   items: CartItem[];
   itemCount: number;
   subtotal: number;
-  addItem: (product: Product, quantity?: number) => void;
-  removeItem: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  addItem: (product: Product, quantity?: number, size?: string) => void;
+  removeItem: (lineKey: string) => void;
+  updateQuantity: (lineKey: string, quantity: number) => void;
   clearCart: () => void;
 }
 
@@ -71,6 +72,11 @@ function isValidCartItem(item: unknown): item is CartItem {
     (item as CartItem).quantity < 1 ||
     !isValidProduct((item as CartItem).product)
   ) {
+    return false;
+  }
+
+  const size = (item as CartItem).size;
+  if (size !== undefined && typeof size !== "string") {
     return false;
   }
 
@@ -178,39 +184,49 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [items, hydrated]);
 
-  const addItem = useCallback((product: Product, quantity = 1) => {
+  const addItem = useCallback((product: Product, quantity = 1, size?: string) => {
     const normalized = normalizeProduct(product);
     if (!normalized) return;
 
+    const lineKey = cartLineKey(normalized.id, size);
+
     setItems((current) => {
-      const existing = current.find((item) => item.product.id === normalized.id);
+      const existing = current.find(
+        (item) => cartLineKey(item.product.id, item.size) === lineKey
+      );
       if (existing) {
         return current.map((item) =>
-          item.product.id === normalized.id
+          cartLineKey(item.product.id, item.size) === lineKey
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...current, { product: normalized, quantity }];
+      return [...current, { product: normalized, quantity, size }];
     });
   }, []);
 
-  const removeItem = useCallback((productId: string) => {
+  const removeItem = useCallback((lineKey: string) => {
     setItems((current) =>
-      current.filter((item) => item.product.id !== productId)
+      current.filter(
+        (item) => cartLineKey(item.product.id, item.size) !== lineKey
+      )
     );
   }, []);
 
-  const updateQuantity = useCallback((productId: string, quantity: number) => {
+  const updateQuantity = useCallback((lineKey: string, quantity: number) => {
     if (quantity <= 0) {
       setItems((current) =>
-        current.filter((item) => item.product.id !== productId)
+        current.filter(
+          (item) => cartLineKey(item.product.id, item.size) !== lineKey
+        )
       );
       return;
     }
     setItems((current) =>
       current.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
+        cartLineKey(item.product.id, item.size) === lineKey
+          ? { ...item, quantity }
+          : item
       )
     );
   }, []);

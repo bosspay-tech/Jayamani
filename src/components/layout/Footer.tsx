@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
+import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/contact";
 
 export function Footer() {
   return (
@@ -16,17 +17,14 @@ export function Footer() {
           <div className="space-y-3 text-sm text-primary-foreground/80">
             <p className="flex items-start gap-2">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-              <a href="tel:9384099029" className="hover:text-accent">
-                9384099029
+              <a href={`tel:${CONTACT_PHONE}`} className="hover:text-accent">
+                {CONTACT_PHONE}
               </a>
             </p>
             <p className="flex items-start gap-2">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-              <a
-                href="mailto:sales@jayamanicollections.com"
-                className="hover:text-accent"
-              >
-                sales@jayamanicollections.com
+              <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-accent">
+                {CONTACT_EMAIL}
               </a>
             </p>
             <p className="flex items-start gap-2">

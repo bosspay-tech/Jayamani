@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { AddToCartButton } from "@/components/shop/AddToCartButton";
+import { ProductPurchasePanel } from "@/components/shop/ProductPurchasePanel";
+import { CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/contact";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { getProductBySlug } from "@/lib/data";
 import { calculateDiscount, formatPrice } from "@/lib/utils";
@@ -94,15 +95,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <li>• Secure payment options</li>
             </ul>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <AddToCartButton product={product} />
-              <Link
-                href="/cart"
-                className="inline-flex items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-semibold uppercase transition hover:border-accent hover:text-accent"
-              >
-                View Cart
-              </Link>
-            </div>
+            <ProductPurchasePanel product={product} />
 
             <div className="mt-10 rounded-2xl bg-muted p-5 text-sm text-muted-foreground">
               <p>
@@ -111,15 +104,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </p>
               <p className="mt-2">
                 Need help? Call{" "}
-                <a href="tel:9384099029" className="text-accent">
-                  9384099029
+                <a href={`tel:${CONTACT_PHONE}`} className="text-accent">
+                  {CONTACT_PHONE}
                 </a>{" "}
                 or email{" "}
-                <a
-                  href="mailto:sales@jayamanicollections.com"
-                  className="text-accent"
-                >
-                  sales@jayamanicollections.com
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-accent">
+                  {CONTACT_EMAIL}
                 </a>
               </p>
             </div>

@@ -27,6 +27,18 @@ export default function CheckoutPage() {
     pincode: "",
   });
   const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("");
+
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "preconnect";
+    link.href = "https://pay.easebuzz.in";
+    document.head.appendChild(link);
+
+    return () => {
+      link.remove();
+    };
+  }, []);
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -51,43 +63,57 @@ export default function CheckoutPage() {
     }
 
     setLoading(true);
+    setLoadingMessage("Creating your order...");
 
-    const response = await fetch("/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...form,
-        items: items.map((item) => ({
-          productId: item.product.id,
-          productSlug: item.product.slug,
-          quantity: item.quantity,
-        })),
-      }),
-    });
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          items: items.map((item) => ({
+            productId: item.product.id,
+            productSlug: item.product.slug,
+            quantity: item.quantity,
+            size: item.size,
+          })),
+        }),
+      });
 
-    const result = await response.json();
-    setLoading(false);
+      const result = await response.json();
 
-    if (!response.ok || !result.success) {
-      toast.error(result.error ?? "Failed to place order");
-      return;
-    }
-
-    if (result.data?.paymentUrl) {
-      const paymentUrl = result.data.paymentUrl as string;
-      if (!paymentUrl.includes("easebuzz.in")) {
-        toast.error("Invalid payment gateway response. Please try again.");
+      if (!response.ok || !result.success) {
+        setLoading(false);
+        setLoadingMessage("");
+        toast.error(result.error ?? "Failed to place order");
         return;
       }
-      clearCart();
-      window.location.assign(paymentUrl);
-      return;
-    }
 
-    clearCart();
-    toast.success("Order placed successfully");
-    router.push(`/orders/${result.data.order.id}?placed=1`);
-    router.refresh();
+      if (result.data?.paymentUrl) {
+        const paymentUrl = result.data.paymentUrl as string;
+        if (!paymentUrl.includes("easebuzz.in")) {
+          setLoading(false);
+          setLoadingMessage("");
+          toast.error("Invalid payment gateway response. Please try again.");
+          return;
+        }
+        setLoadingMessage("Redirecting to payment gateway...");
+        clearCart();
+        window.location.assign(paymentUrl);
+        return;
+      }
+
+      setLoading(false);
+      setLoadingMessage("");
+      clearCart();
+      toast.success("Order placed successfully");
+      router.push(`/orders/${result.data.order.id}?placed=1`);
+      router.refresh();
+    } catch {
+      setLoading(false);
+      setLoadingMessage("");
+      toast.error("Failed to place order. Please try again.");
+    }
   }
 
   if (items.length === 0) {
@@ -207,7 +233,9 @@ export default function CheckoutPage() {
             disabled={loading}
             className="w-full rounded-full bg-accent py-3 text-sm font-semibold text-accent-foreground uppercase transition hover:brightness-110 disabled:opacity-60"
           >
-            {loading ? "Redirecting to Payment..." : "Pay with Easebuzz"}
+            {loading
+              ? loadingMessage || "Proceeding to Payment..."
+              : "Proceed to Payment"}
           </button>
         </form>
 

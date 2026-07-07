@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { ProductForm } from "@/components/admin/ProductForm";
+import { formatSizesInput } from "@/lib/product-sizes";
 import { createClient } from "@/lib/supabase/server";
 
 interface EditProductPageProps {
@@ -49,6 +50,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
             image_url: product.image_url ?? "",
             badge: product.badge ?? "",
             category_id: product.category_id ?? "",
+            sizes: formatSizesInput(product.sizes),
             stock: String(product.stock),
             is_featured: product.is_featured,
             is_new_arrival: product.is_new_arrival,
