@@ -13,6 +13,11 @@ export interface CreateOrderBody {
   city: string;
   state: string;
   pincode: string;
+  billingSameAsShipping?: boolean;
+  billingAddress?: string;
+  billingCity?: string;
+  billingState?: string;
+  billingPincode?: string;
   items: OrderItemInput[];
 }
 
@@ -40,6 +45,11 @@ export interface Order {
   city: string;
   state: string;
   pincode: string;
+  billing_same_as_shipping?: boolean;
+  billing_address?: string | null;
+  billing_city?: string | null;
+  billing_state?: string | null;
+  billing_pincode?: string | null;
   subtotal: number;
   shipping: number;
   total: number;

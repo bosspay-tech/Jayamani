@@ -11,6 +11,12 @@ export function validateCreateOrderBody(body: CreateOrderBody): string | null {
   if (!body.city?.trim()) return "City is required";
   if (!body.state?.trim()) return "State is required";
   if (!body.pincode?.trim()) return "Pincode is required";
+  if (body.billingSameAsShipping === false) {
+    if (!body.billingAddress?.trim()) return "Billing address is required";
+    if (!body.billingCity?.trim()) return "Billing city is required";
+    if (!body.billingState?.trim()) return "Billing state is required";
+    if (!body.billingPincode?.trim()) return "Billing pincode is required";
+  }
   if (!body.items?.length) return "Cart is empty";
   if (body.items.some((item) => !item.productId || item.quantity < 1)) {
     return "Invalid cart items";
@@ -27,4 +33,26 @@ export function generateOrderNumber() {
 
 export function calculateShipping(_subtotal: number) {
   return 0;
+}
+
+export function resolveBillingDetails(body: CreateOrderBody) {
+  const billingSameAsShipping = body.billingSameAsShipping !== false;
+
+  if (billingSameAsShipping) {
+    return {
+      billing_same_as_shipping: true,
+      billing_address: body.shippingAddress.trim(),
+      billing_city: body.city.trim(),
+      billing_state: body.state.trim(),
+      billing_pincode: body.pincode.trim(),
+    };
+  }
+
+  return {
+    billing_same_as_shipping: false,
+    billing_address: body.billingAddress!.trim(),
+    billing_city: body.billingCity!.trim(),
+    billing_state: body.billingState!.trim(),
+    billing_pincode: body.billingPincode!.trim(),
+  };
 }

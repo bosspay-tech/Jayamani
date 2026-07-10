@@ -26,6 +26,13 @@ export default function CheckoutPage() {
     state: "Tamil Nadu",
     pincode: "",
   });
+  const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
+  const [billing, setBilling] = useState({
+    billingAddress: "",
+    billingCity: "",
+    billingState: "Tamil Nadu",
+    billingPincode: "",
+  });
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("");
 
@@ -71,6 +78,8 @@ export default function CheckoutPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
+          billingSameAsShipping,
+          ...(billingSameAsShipping ? {} : billing),
           items: items.map((item) => ({
             productId: item.product.id,
             productSlug: item.product.slug,
@@ -146,7 +155,7 @@ export default function CheckoutPage() {
 
       <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_360px] lg:px-8">
         <form onSubmit={handleSubmit} className="space-y-5 rounded-3xl border border-border bg-surface p-6">
-          <h2 className="font-display text-2xl">Shipping Details</h2>
+          <h2 className="font-display text-2xl">Delivery Address</h2>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Full Name" required>
@@ -226,6 +235,79 @@ export default function CheckoutPage() {
                 className={inputClass}
               />
             </Field>
+          </div>
+
+          <div className="border-t border-border pt-5">
+            <h2 className="font-display text-2xl">Billing Address</h2>
+            <label className="mt-4 flex cursor-pointer items-center gap-3 text-sm">
+              <input
+                type="checkbox"
+                checked={billingSameAsShipping}
+                onChange={(event) => setBillingSameAsShipping(event.target.checked)}
+                className="h-4 w-4 rounded border-border text-accent focus:ring-accent"
+              />
+              <span>Same as delivery address</span>
+            </label>
+
+            {!billingSameAsShipping && (
+              <div className="mt-4 space-y-4">
+                <Field label="Billing Address" required>
+                  <textarea
+                    required
+                    rows={3}
+                    value={billing.billingAddress}
+                    onChange={(e) =>
+                      setBilling((current) => ({
+                        ...current,
+                        billingAddress: e.target.value,
+                      }))
+                    }
+                    className={inputClass}
+                  />
+                </Field>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <Field label="City" required>
+                    <input
+                      required
+                      value={billing.billingCity}
+                      onChange={(e) =>
+                        setBilling((current) => ({
+                          ...current,
+                          billingCity: e.target.value,
+                        }))
+                      }
+                      className={inputClass}
+                    />
+                  </Field>
+                  <Field label="State" required>
+                    <input
+                      required
+                      value={billing.billingState}
+                      onChange={(e) =>
+                        setBilling((current) => ({
+                          ...current,
+                          billingState: e.target.value,
+                        }))
+                      }
+                      className={inputClass}
+                    />
+                  </Field>
+                  <Field label="Pincode" required>
+                    <input
+                      required
+                      value={billing.billingPincode}
+                      onChange={(e) =>
+                        setBilling((current) => ({
+                          ...current,
+                          billingPincode: e.target.value,
+                        }))
+                      }
+                      className={inputClass}
+                    />
+                  </Field>
+                </div>
+              </div>
+            )}
           </div>
 
           <button

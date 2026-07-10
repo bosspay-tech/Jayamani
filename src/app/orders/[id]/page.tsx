@@ -100,11 +100,26 @@ function OrderDetailContent() {
                   <p className="text-muted-foreground">{order.customer_phone}</p>
                 </div>
                 <div>
-                  <p className="font-medium">Shipping Address</p>
+                  <p className="font-medium">Delivery Address</p>
                   <p className="mt-1 text-muted-foreground">
                     {order.shipping_address}
                     <br />
                     {order.city}, {order.state} {order.pincode}
+                  </p>
+                </div>
+                <div className="sm:col-span-2">
+                  <p className="font-medium">Billing Address</p>
+                  <p className="mt-1 text-muted-foreground">
+                    {order.billing_same_as_shipping !== false ? (
+                      "Same as delivery address"
+                    ) : (
+                      <>
+                        {order.billing_address}
+                        <br />
+                        {order.billing_city}, {order.billing_state}{" "}
+                        {order.billing_pincode}
+                      </>
+                    )}
                   </p>
                 </div>
               </div>

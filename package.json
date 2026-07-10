@@ -14,6 +14,7 @@
     "import:products": "tsx --env-file=.env scripts/import-products.ts",
     "restore-images": "tsx --env-file=.env scripts/restore-images.ts",
     "make-admin": "tsx --env-file=.env scripts/make-admin.ts",
+    "create-demo-user": "tsx --env-file=.env scripts/create-demo-user.ts",
     "prices:round": "tsx --env-file=.env scripts/round-product-prices.ts"
   },
   "dependencies": {

@@ -1,6 +1,7 @@
 import {
   calculateShipping,
   generateOrderNumber,
+  resolveBillingDetails,
   validateCreateOrderBody,
 } from "./validators";
 import type { CreateOrderBody } from "./types";
@@ -63,6 +64,16 @@ async function insertOrderItems(
 
   console.error("Order items insert failed:", error);
   return { ok: false as const, error: error.message };
+}
+
+function isMissingBillingColumnError(message: string) {
+  const normalized = message.toLowerCase();
+  return (
+    normalized.includes("billing_") &&
+    (normalized.includes("schema cache") ||
+      normalized.includes("column") ||
+      normalized.includes("does not exist"))
+  );
 }
 
 export async function createOrder(request: Request) {
@@ -141,25 +152,43 @@ export async function createOrder(request: Request) {
     const successUrl = `${siteUrl}/payment/success`;
     const failureUrl = `${siteUrl}/payment/failed`;
 
-    const { data: order, error: orderError } = await admin
-      .from("orders")
-      .insert({
-        user_id: user?.id ?? null,
-        order_number: orderNumber,
-        status: "awaiting_payment",
-        customer_name: body.customerName.trim(),
-        customer_email: body.customerEmail.trim().toLowerCase(),
-        customer_phone: body.customerPhone.trim(),
-        shipping_address: body.shippingAddress.trim(),
-        city: body.city.trim(),
-        state: body.state.trim(),
-        pincode: body.pincode.trim(),
-        subtotal,
-        shipping,
-        total,
-      })
-      .select("*")
-      .single();
+    const billing = resolveBillingDetails(body);
+    const orderPayload = {
+      user_id: user?.id ?? null,
+      order_number: orderNumber,
+      status: "awaiting_payment",
+      customer_name: body.customerName.trim(),
+      customer_email: body.customerEmail.trim().toLowerCase(),
+      customer_phone: body.customerPhone.trim(),
+      shipping_address: body.shippingAddress.trim(),
+      city: body.city.trim(),
+      state: body.state.trim(),
+      pincode: body.pincode.trim(),
+      ...billing,
+      subtotal,
+      shipping,
+      total,
+    };
+
+    let orderResult = await admin.from("orders").insert(orderPayload).select("*").single();
+
+    if (orderResult.error && isMissingBillingColumnError(orderResult.error.message)) {
+      const {
+        billing_same_as_shipping: _same,
+        billing_address: _address,
+        billing_city: _city,
+        billing_state: _state,
+        billing_pincode: _pincode,
+        ...withoutBilling
+      } = orderPayload;
+
+      console.warn(
+        "orders billing columns missing; saved without billing address. Run supabase/migrations/add_billing_address.sql."
+      );
+      orderResult = await admin.from("orders").insert(withoutBilling).select("*").single();
+    }
+
+    const { data: order, error: orderError } = orderResult;
 
     if (orderError || !order) {
       return apiError(orderError?.message ?? "Failed to create order.", 500);
