@@ -82,9 +82,8 @@ export default function PrivacyPage() {
                 trusted third parties only when necessary, such as:
               </p>
               <ul className="list-disc space-y-2 pl-5">
-                <li>Payment and logistics partners to complete your order</li>
+                <li>Logistics partners to complete your order</li>
                 <li>Technology providers that host and operate our website</li>
-                <li>Authorities when required by law or to protect our rights</li>
               </ul>
               <p>
                 All third-party partners are expected to handle your data
